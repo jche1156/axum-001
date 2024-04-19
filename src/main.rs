@@ -17,5 +17,6 @@ async fn main() {
         .nest_service("/assets", assets_serve_dir);
 
     let listener = tokio::net::TcpListener::bind("0.0.0.0:7890").await.unwrap();
+    println!("Creating server at localhost:7890 ...");
     axum::serve(listener, app).await.unwrap();
 }

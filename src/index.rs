@@ -64,23 +64,22 @@ pub async fn render() -> Markup {
     page(
         "Hello!",
         html! {
-            div {
+            div class="flex flex-col gap-y-4 items-stretch w-3/5 m-auto" {
                 @for item in &runs {
-                    div class="bg-red-100 flex justify-center max-w-3xl gap-2 p-4 m-auto" {
-                        div class="p-20" {
-                            h3 { (item.location) }
-                            p { (item.date) }
+                    div class="bg-red-100 h-60 p-8 rounded-lg grid grid-cols-3 grid-rows-3" {
+                        div class="col-span-3 flex" {
+                            h3 class="grow" { (item.location) }
+                            p class="justify-self-end"{ (item.date) }
                         }
-                        div {
-                            p { (item.distance) }
-                            p { (item.pace) }
+                        div class="row-start-3" {
+                            p { (format!("{} mi", item.distance)) }
+                            p { (format!("{} mins / mi", item.pace)) }
                         }
-                        @match item.comments {
-                            None => {
-                                p { "No Comment" }
-                            },
-                            _ => {
-                                p { (item.comments.as_ref().unwrap()) }
+                        p class="row-start-3 col-start-3" {
+                            "Comment: "
+                            @match &item.comments {
+                                Some(x) => (x),
+                                None => ""
                             }
                         }
                     }
