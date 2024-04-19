@@ -64,7 +64,7 @@ pub async fn render() -> Markup {
     page(
         "Hello!",
         html! {
-            div class="flex flex-col gap-y-4 items-stretch w-3/5 m-auto" {
+            div class="flex flex-col gap-y-4 items-stretch w-3/5 m-auto max-w-3xl" {
                 @for item in &runs {
                     div class="bg-red-100 h-60 p-8 rounded-lg grid grid-cols-3 grid-rows-3" {
                         div class="col-span-3 flex" {

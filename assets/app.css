@@ -590,6 +590,10 @@ video {
   width: 60%;
 }
 
+.max-w-3xl {
+  max-width: 48rem;
+}
+
 .grow {
   flex-grow: 1;
 }
