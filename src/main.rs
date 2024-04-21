@@ -3,6 +3,7 @@ use tower_http::services::ServeDir;
 
 mod index;
 mod rest;
+mod schema;
 
 #[tokio::main]
 async fn main() {
@@ -14,6 +15,9 @@ async fn main() {
     let app = Router::new()
         .route("/", get(index::render))
         .route("/rest/hi", post(rest::htmx_msg))
+        .route("/rest/edit", post(rest::edit))
+        .route("/rest/delete", post(rest::delete))
+        .route("/rest/confirm", post(rest::confirm))
         .nest_service("/assets", assets_serve_dir);
 
     let listener = tokio::net::TcpListener::bind("0.0.0.0:7890").await.unwrap();
