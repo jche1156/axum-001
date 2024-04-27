@@ -15,6 +15,7 @@ async fn main() {
     let app = Router::new()
         .route("/", get(index::render))
         .route("/rest/hi", post(rest::htmx_msg))
+        .route("/rest/empty", post(rest::empty))
         .route("/rest/edit", post(rest::edit))
         .route("/rest/delete", post(rest::delete))
         .route("/rest/confirm", post(rest::confirm))

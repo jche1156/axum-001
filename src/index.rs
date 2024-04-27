@@ -43,7 +43,7 @@ fn page(title: &str, greeting_box: Markup) -> Markup {
 pub async fn render() -> Markup {
     dotenv::dotenv().ok();
     let offline = true;
-    let mut body;
+    let body;
     if offline {
         body = String::from(r#"
             [{"id":61,"created_at":"2024-04-16T23:30:21.974691+00:00","date":"2024-04-13","distance":"2.0","pace":"13:32","comments":"whoooosh","location":"CCSF Track"},

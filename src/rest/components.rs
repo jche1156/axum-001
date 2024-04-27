@@ -1,5 +1,4 @@
 use maud::{html, Markup};
-use serde::Deserialize;
 
 use crate::schema::Run;
 
@@ -70,7 +69,7 @@ fn uneditable_card(item: Run) -> Markup {
 }
 
 pub fn run_card(item: Run, editable: bool) -> Markup {     
-    match &editable {
+    match editable {
         true => editable_card(item),
         false => uneditable_card(item)
     }
