@@ -4,3 +4,7 @@ buildrun:
 
 watch:
 	watchexec -r just buildrun
+
+fmt:
+	cargo fmt
+	rustywind --write .

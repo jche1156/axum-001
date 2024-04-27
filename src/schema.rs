@@ -10,4 +10,3 @@ pub struct Run {
     pub comments: Option<String>,
     pub location: String,
 }
-

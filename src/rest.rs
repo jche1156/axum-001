@@ -6,9 +6,7 @@ mod components;
 
 // Empty element for removing things
 pub async fn empty() -> Markup {
-    html! {
-        
-    }
+    html! {}
 }
 
 pub async fn htmx_msg() -> Markup {
@@ -20,11 +18,11 @@ pub async fn htmx_msg() -> Markup {
 
 pub async fn edit() -> Markup {
     html! {
-        div class="flex flex-col space-y-2 w-1/4 m-auto"{
-            button class="outline outline-3 bg-green-100 hover:bg-green-200 px-2 max-w-24 rounded-sm" hx-post="/rest/confirm" hx-trigger="click" hx-target="closest div" hx-swap="outerHTML" {
+        div class="flex flex-col m-auto space-y-2 w-1/4"{
+            button class="px-2 bg-green-100 rounded-sm hover:bg-green-200 outline outline-3 max-w-24" hx-post="/rest/confirm" hx-trigger="click" hx-target="closest div" hx-swap="outerHTML" {
                 "Confirm"
             }
-            button class="outline outline-3 bg-orange-100 hover:bg-orange-200 px-2 max-w-24 rounded-sm" hx-post="/rest/confirm" hx-trigger="click" hx-target="closest div" hx-swap="outerHTML" {
+            button class="px-2 bg-orange-100 rounded-sm hover:bg-orange-200 outline outline-3 max-w-24" hx-post="/rest/confirm" hx-trigger="click" hx-target="closest div" hx-swap="outerHTML" {
                 "Cancel"
             }
         }
@@ -33,11 +31,11 @@ pub async fn edit() -> Markup {
 
 pub async fn delete() -> Markup {
     html! {
-        div class="flex flex-col space-y-2 w-1/4 m-auto"{
-            button class="outline outline-3 bg-red-200 hover:bg-red-300 px-2 max-w-24 rounded-sm" hx-post="/rest/empty" hx-trigger="click" hx-target="closest .run-card" hx-swap="outerHTML" {
+        div class="flex flex-col m-auto space-y-2 w-1/4"{
+            button class="px-2 bg-red-200 rounded-sm hover:bg-red-300 outline outline-3 max-w-24" hx-post="/rest/empty" hx-trigger="click" hx-target="closest .run-card" hx-swap="outerHTML" {
                 "Confirm"
             }
-            button class="outline outline-3 bg-orange-100 hover:bg-orange-200 px-2 max-w-24 rounded-sm" hx-post="/rest/confirm" hx-trigger="click" hx-target="closest div" hx-swap="outerHTML" {
+            button class="px-2 bg-orange-100 rounded-sm hover:bg-orange-200 outline outline-3 max-w-24" hx-post="/rest/confirm" hx-trigger="click" hx-target="closest div" hx-swap="outerHTML" {
                 "Cancel"
             }
         }
@@ -46,11 +44,11 @@ pub async fn delete() -> Markup {
 
 pub async fn confirm() -> Markup {
     html! {
-        div class="flex flex-col space-y-2 w-1/4 m-auto"{
-            button class="outline outline-3 hover:bg-orange-200 px-2 max-w-24 rounded-sm" hx-post="/rest/edit" hx-trigger="click" hx-target="closest div" hx-swap="outerHTML" {
+        div class="flex flex-col m-auto space-y-2 w-1/4"{
+            button class="px-2 rounded-sm hover:bg-orange-200 outline outline-3 max-w-24" hx-post="/rest/edit" hx-trigger="click" hx-target="closest div" hx-swap="outerHTML" {
                 "Edit"
             }
-            button class="outline outline-3 hover:bg-red-300 px-2 max-w-24 rounded-sm" hx-post="/rest/delete" hx-trigger="click" hx-target="closest div" hx-swap="outerHTML" {
+            button class="px-2 rounded-sm hover:bg-red-300 outline outline-3 max-w-24" hx-post="/rest/delete" hx-trigger="click" hx-target="closest div" hx-swap="outerHTML" {
                 "Delete"
             }
         }

@@ -11,7 +11,6 @@ fn header(page_title: &str) -> Markup {
         title { (page_title) }
         link rel="stylesheet" href="assets/app.css";
         script src="assets/htmx.min.js" { }
-        // script src="https://unpkg.com/htmx.org@1.9.12" integrity="sha384-ujb1lZYygJmzgSwoxRggbCHcjc0rB2XoQrxeTUQyRjrOnlCoYta87iKBWq3EsdM2" crossorigin="anonymous" { }
     }
 }
 
@@ -33,7 +32,7 @@ fn page(title: &str, greeting_box: Markup) -> Markup {
         body class="bg-slate-800"
         {
             (header(title))
-            h1 class="text-center text-white w-3/5 text-3xl my-12 mx-auto" { (title) }
+            h1 class="my-12 mx-auto w-3/5 text-3xl text-center text-white" { (title) }
             (greeting_box)
             (footer())
         }
@@ -45,7 +44,8 @@ pub async fn render() -> Markup {
     let offline = true;
     let body;
     if offline {
-        body = String::from(r#"
+        body = String::from(
+            r#"
             [{"id":61,"created_at":"2024-04-16T23:30:21.974691+00:00","date":"2024-04-13","distance":"2.0","pace":"13:32","comments":"whoooosh","location":"CCSF Track"},
              {"id":2,"created_at":"2024-04-14T19:29:38+00:00","date":"2024-04-14","distance":"1.2","pace":"13:11","comments":null,"location":"City College"},
              {"id":1,"created_at":"2024-04-16T19:29:26.709337+00:00","date":"2024-04-16","distance":"3.2","pace":"12:44","comments":null,"location":"Golden Gate Park"},
@@ -60,7 +60,8 @@ pub async fn render() -> Markup {
              {"id":70,"created_at":"2024-04-16T23:36:24.772319+00:00","date":"2024-04-21","distance":"4","pace":"11:12","comments":"5km first time","location":"CCSF Track"},
              {"id":71,"created_at":"2024-04-16T23:36:25.702372+00:00","date":"2024-04-22","distance":"4","pace":"11:12","comments":"warm up","location":"CCSF Track"},
              {"id":72,"created_at":"2024-04-16T23:36:27.012318+00:00","date":"2024-04-22","distance":"4","pace":"11:12","comments":"5km second time","location":"CCSF Track"}]
-             "#);
+             "#,
+        );
     } else {
         let db_url = dotenv::var("SUPABASE_URL").unwrap() + "/rest/v1";
         let db_key = dotenv::var("SUPABASE_KEY").unwrap();
@@ -72,38 +73,38 @@ pub async fn render() -> Markup {
     page(
         "Welcome to John's Run Tracker",
         html! {
-            div class="flex flex-col gap-y-4 items-stretch w-3/5 m-auto min-w-80 max-w-3xl" {
+            div class="flex flex-col gap-y-4 items-stretch m-auto w-3/5 max-w-3xl min-w-80" {
                 @for item in &runs {
-                    div class="bg-slate-500 outline-blue-500 h-64 p-4 rounded-lg grid grid-cols-3 grid-rows-3 run-card" {
-                        div class="col-span-3 text-slate-300 flex italic" {
-                            input type="text" value=(item.id) disabled class="text-xs rounded-xl opacity-55 bg-slate-300 text-slate-500 outline outline-3 w-5 h-5 ml-1 mt-2 text-center mr-2";
-                            h3 class="grow text-3xl" { (item.location) }
+                    div class="grid grid-cols-3 grid-rows-3 p-4 h-64 rounded-lg bg-slate-500 outline-blue-500 run-card" {
+                        div class="flex col-span-3 italic text-slate-300" {
+                            input type="text" value=(item.id) disabled class="mt-2 mr-2 ml-1 w-5 h-5 text-xs text-center rounded-xl opacity-55 bg-slate-300 text-slate-500 outline outline-3";
+                            h3 class="text-3xl grow" { (item.location) }
                             p class="justify-self-end"{ (item.date) }
                         }
-                        div class="h-20 p-4 text-sm italic row-start-3 col-span-3 rounded-lg flex my-auto justify-between space-x-2 text-slate-600 bg-slate-300" {
+                        div class="flex col-span-3 row-start-3 justify-between p-4 my-auto space-x-2 h-20 text-sm italic rounded-lg text-slate-600 bg-slate-300" {
                             div class="w-1/3 min-w-20" {
                                 p { (format!("{} mi", item.distance)) }
                                 p { (format!("{} / mi", item.pace)) }
                             }
-                            p class="w-full inline-block align-middle opacity-70" {
+                            p class="inline-block w-full align-middle opacity-70" {
                                 "Comment: "
                                 @match &item.comments {
                                     Some(x) => (x),
                                     None => ""
                                 }
                             }
-                            div class="flex flex-col space-y-2 w-1/4 m-auto"{
-                                button class="outline outline-3 hover:bg-orange-200 px-2 max-w-24 rounded-sm" hx-post="/rest/edit" hx-trigger="click" hx-target="closest div" hx-swap="outerHTML" {
+                            div class="flex flex-col m-auto space-y-2 w-1/4"{
+                                button class="px-2 rounded-sm hover:bg-orange-200 outline outline-3 max-w-24" hx-post="/rest/edit" hx-trigger="click" hx-target="closest div" hx-swap="outerHTML" {
                                     "Edit"
                                 }
-                                button class="outline outline-3 hover:bg-red-300 px-2 max-w-24 rounded-sm" hx-post="/rest/delete" hx-trigger="click" hx-target="closest div" hx-swap="outerHTML" {
+                                button class="px-2 rounded-sm hover:bg-red-300 outline outline-3 max-w-24" hx-post="/rest/delete" hx-trigger="click" hx-target="closest div" hx-swap="outerHTML" {
                                     "Delete"
                                 }
                             }
                         }
                     }
                 }
-                div class="text-center pb-20 text-white text-3xl" hx-post="/rest/hi" hx-trigger="mouseenter" hx-swap="beforebegin" { "[New Run!]" }
+                div class="pb-20 text-3xl text-center text-white" hx-post="/rest/hi" hx-trigger="mouseenter" hx-swap="beforebegin" { "[New Run!]" }
             }
         },
     )
